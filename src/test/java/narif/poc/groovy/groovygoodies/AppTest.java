@@ -20,7 +20,7 @@ import groovy.lang.Script;
 @DisplayName("Application Specification:")
 public class AppTest {
 
-	@DisplayName("When 1 is added 2 then sum should be 3")
+	@DisplayName("When 1 is added to 2, then sum should be 3")
 	@Test
 	public void checkAddition() {
 		App app = new App();
@@ -36,6 +36,17 @@ public class AppTest {
 		Script script = shell.parse(scriptFile);
 		Object result = script.run();
 		assertThat(result.toString()).isNotNull().isNotEmpty().isNotBlank().isEqualTo("Hello");
+	}
+	
+	@Test
+	@DisplayName("Execute The Sql statement and get a handle of the connection.")
+	public void checkGroovyScript2() throws CompilationFailedException, IOException {
+		Path p = Paths.get("SqlConnections.groovy");
+		final File scriptFile = p.toFile();
+		GroovyShell shell = new GroovyShell();
+		Script script = shell.parse(scriptFile);
+		Object result = script.run();
+		assertThat(result).isNotNull();
 	}
 
 }
